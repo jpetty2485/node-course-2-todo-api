@@ -1,3 +1,5 @@
+require('./config/config');
+
 const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -8,7 +10,7 @@ var {Todo} = require('./models/todo');
 var {User} = require('./models/user');
 
 var app = express();
-var port = process.env.PORT || 3000;
+var port = process.env.PORT;
 
 app.use(bodyParser.json());
 
@@ -64,7 +66,7 @@ app.delete('/todos/:id', (req, res) => {
 
 app.patch('/todos/:id', (req, res) => {
   var id = req.params.id;
-  
+
   // Creats a subset of the things the user passed to us.  Don't want user to update just anything.
   var body = _.pick(req.body, ['text', 'completed']);
 
@@ -89,7 +91,7 @@ app.patch('/todos/:id', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Started up at prot ${port}`);
+  console.log(`Started up at port ${port}`);
 });
 
 module.exports = {app};
